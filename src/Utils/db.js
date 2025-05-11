@@ -8,8 +8,16 @@ if (!mongoURI) {
   process.exit(1); // Exit the process if no URI is provided
 }
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error: ", err));
+// Define the connectDB function
+const connectDB = async () => {
+  try {
+    await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection error: ", err);
+    process.exit(1); // Exit the process if the connection fails
+  }
+};
 
+// Export the connectDB function
 module.exports = connectDB;
