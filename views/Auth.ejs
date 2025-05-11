@@ -1,0 +1,169 @@
+
+
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
+ 
+ <head>
+   <meta charset="UTF-8">
+   <title> Login and Registration Form in HTML & CSS | CodingLab </title>
+   <link rel="stylesheet" href="/css/signuppage.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ </head>
+ 
+ <body>
+  <div class="alert-container" id="alert-container"></div>
+   <div class="container">
+     <!-- Flip checkbox, only here once -->
+     <input type="checkbox" id="flip" <%= showSignup ? 'checked' : '' %> style="display: none;">
+    
+     <div class="cover">
+       <div class="front">
+         <img src="images/image2.png" alt="">
+       </div>
+       <div class="back">
+         <img class="backImg" src="images/image.png" alt="">
+       </div>
+     </div>
+ 
+     <div class="forms">
+       <div class="form-content">
+         <!-- Login Form -->
+         <div class="login-form">
+           <div class="title">Login</div>
+           <form action="#" method="post" id="loginform">
+             <div class="input-boxes">
+               <div class="input-box">
+                 <i class="fas fa-envelope"></i>
+                 <input type="text" id='email' placeholder="Enter your Email" required>
+               </div>
+               <div class="input-box">
+                 <i class="fas fa-lock"></i>
+                 <input type="password" id="password" placeholder="Enter your password" required>
+               </div>
+               <div class="button input-box">
+                 <input type="submit" value="Log In">
+               </div>
+               <div class="text sign-up-text">Don't have an account? <label for="flip">Signup now</label></div>
+             </div>
+           </form>
+         </div>
+ 
+         <!-- Signup Form -->
+         <div class="signup-form">
+           <div class="title">Sign Up</div>
+           <form action="#" method="post" id="registerform">
+             <div class="input-boxes">
+               <div class="input-box">
+                 <i class="fas fa-user"></i>
+                 <input type="text" id="username-signup" placeholder="Enter your Username" required>
+               </div>
+               <div class="input-box">
+                 <i class="fas fa-envelope"></i>
+                 <input type="text" id="email-signup" placeholder="Enter your email" required>
+               </div>
+               <div class="input-box">
+                 <i class="fas fa-lock"></i>
+                 <input type="password" id="password-signup" placeholder="Enter your password" required>
+               </div>
+               <div class="button input-box">
+                 <input type="submit" value="Sign Up">
+               </div>
+               <div class="text sign-up-text">Already have an account? <label for="flip">Login now</label></div>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ 
+   <script>
+     // Register form submission
+     document.getElementById('registerform').addEventListener('submit', async (e) => {
+       e.preventDefault();
+ 
+       const email = document.getElementById('email-signup').value;
+       const username = document.getElementById('username-signup').value;
+       const password = document.getElementById('password-signup').value;
+ 
+       try {
+         const response = await fetch('http://localhost:3000/api/auth/signup', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({ email, username, password }),
+         });
+ 
+         const result = await response.json();
+         console.log(result.redirectTO);
+         await showAlert(`Welcome ${username}`, 'success' , result.redirectTO )
+       } catch (error) {
+         console.error(error);
+         //alert('Error occurred during registration');
+         // showAlert('Error occurred during registration', 'error','/login' )
+       }
+     });
+ 
+     // Login form submission
+     document.getElementById('loginform').addEventListener('submit', async (e) => {
+       e.preventDefault();
+ 
+       const email = document.getElementById('email').value;
+       const password = document.getElementById('password').value;
+ 
+       try {
+         const response = await fetch('http://localhost:3000/api/auth/login', {
+           method: "POST",
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({ email, password }),
+         });
+ 
+         if (!response.ok) {
+           const error = await response.text();
+           throw new Error(error || 'Unknown server error');
+         }
+ 
+         const data = await response.json(); 
+         const username =await data.data.username;
+         console.log(username);
+         await showAlert(`Welcome back ${username}`, 'success', data.redirectTO)
+         //window.location.href = data.redirect; // Redirect after success
+       } catch (error) {
+         console.error(error);
+         // alert('Error occurred during login');
+         showAlert('Error occurred during login', 'error', '/singup')
+       }
+     });
+
+
+     //* Show Alert Container
+     function showAlert(message, type, redirectTO ) {
+      const container = document.getElementById('alert-container');
+    
+      const alert = document.createElement('div');
+      alert.classList.add('alert', `alert-${type}`);
+      alert.innerText = message;
+    
+      container.appendChild(alert);
+    
+      // Animate in after 100ms
+      setTimeout(() => {
+        alert.classList.add('show');
+      }, 100);
+    
+      // Remove alert and redirect after 3 seconds
+      setTimeout(() => {
+        alert.classList.remove('show');
+    
+        // Wait for animation to finish, then remove and redirect
+        setTimeout(() => {
+          alert.remove();
+          window.location.href = redirectTO || '/login';
+        }, 400); // match your alert hide animation duration
+      }, 3000); // how long the alert stays on screen
+    }
+    
+   </script>
+ </body>
+ 
+ </html>
+ 

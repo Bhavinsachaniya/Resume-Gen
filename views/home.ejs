@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeGen</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hero-section {
+            background-color: #f8f9ff;
+            padding: 0;
+            min-height: 100vh;
+            width: 100%;
+        }
+        .blue-text {
+            color: #0d6efd;
+        }
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: #0d6efd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        .templates-section {
+            background-color: #f8f9ff;
+            padding: 60px 0;
+            color: black;
+        }
+        .resume-template {
+            background-color: white;
+            border-radius: 8px;
+        }
+        .step-card {
+            height: 100%;
+        }
+        .active {
+            color: #0d6efd !important; /* Bootstrap primary */
+            font-weight: bold;
+            text-decoration: underline;
+          }
+    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+    <div class="alert-container" id="alert-container"></div>
+    <%- include('header') %>
+      
+
+    <!-- Hero Section - Full Page Height -->
+    <section class="hero-section text-center d-flex align-items-center" style="min-height: 100vh;">
+        <div class="container">
+            <h1 class="fw-bold mb-2">WELCOME, <%- session.user.username %></h1>
+            <h2 class="mb-0">CREATE YOUR PROFESSIONAL CV IN</h2>
+            <h2 class="mb-4">JUST <span class="blue-text">5 minutes!</span></h2>
+            <p class="mb-4">Easy to use. Time-saver. Professional.</p>
+            <button class="btn btn-primary px-4 py-2"onclick="window.location.href='/template'"
+            >Let's Get Started</button>
+        </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-3">Create your perfect Resume with easy steps</h2>
+            <p class="text-center mb-5">Effortlessly make a job-worthy resume and cover<br>letter that gets you hired faster.</p>
+            
+            <div class="row g-4">
+                <!-- Step 1 -->
+                <div class="col-md-4">
+                    <div class="card border-0 step-card">
+                        <div class="card-body text-center">
+                            <div class="icon-box mx-auto mb-3">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4 class="fw-bold">Choose your CV template</h4>
+                            <p class="text-muted">Pick a template and color of your choice from a variety of professional templates.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="col-md-4">
+                    <div class="card border-0 step-card">
+                        <div class="card-body text-center">
+                            <div class="icon-box mx-auto mb-3">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h4 class="fw-bold">Place Your Information</h4>
+                            <p class="text-muted">Keep track of your CV with the help of live preview.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="col-md-4">
+                    <div class="card border-0 step-card">
+                        <div class="card-body text-center">
+                            <div class="icon-box mx-auto mb-3">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h4 class="fw-bold">Instantly download your CV</h4>
+                            <p class="text-muted">Easily download your CV as a PDF and share it via a link.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Templates Section -->
+    <section class="templates-section">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
+            <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
+            
+            <div class="d-flex justify-content-center">
+                <div class = "template-item-img mx-auto ms-lg-0 position-relative">
+                    <img src = "/images/final-1.png" alt = "" class = "img-fluid">
+                    <a href = "/Resumeform/TEMPLATE_1" class = "btn btn-lg btn-primary position-absolute choose-template-btn">Select Template</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="py-3 text-center">
+        <p class="text-muted mb-0">© 2022 BuildCv. All rights reserved</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

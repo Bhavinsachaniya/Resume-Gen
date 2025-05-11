@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResumeGen</title>
+  <link rel="stylesheet" href="/css/main.css">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .hero-section {
+      background-color: #f8f9ff;
+      padding: 0;
+      min-height: 100vh;
+      width: 100%;
+    }
+
+    .blue-text {
+      color: #0d6efd;
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      background-color: #0d6efd;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .templates-section {
+      background-color: #f8f9ff;
+      padding: 60px 0;
+      color: black;
+    }
+
+    .resume-template {
+      background-color: white;
+      border-radius: 8px;
+    }
+
+    .step-card {
+      height: 100%;
+    }
+
+    .active {
+      color: #0d6efd !important;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    
+
+.alert-container {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    max-width: 90%;
+}
+
+.alert {
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease;
+    word-wrap: break-word;
+}
+
+.alert.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert-error {
+    background-color: #dc3545;
+}
+
+@media (max-width: 480px) {
+    .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .alert-container {
+        left: 10px;
+        right: 10px;
+    }
+
+    .alert {
+        font-size: 0.85rem;
+        padding: 10px 14px;
+    }
+}
+  </style>
+</head>
+
+<body>
+  <div class="alert-container" id="alert-container"></div>
+  <%- include('header') %>
+
+  <!-- Templates Section -->
+  <section class="templates-section">
+    <div class="container text-center">
+      <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
+      <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
+
+      <div class="d-flex justify-content-center">
+        <div class="template-item-img mx-auto ms-lg-0 position-relative">
+          <img src="/images/final-1.png" alt="" class="img-fluid">
+          <a class="btn btn-lg btn-primary position-absolute choose-template-btn" id="generateResumeBtn" data-template="TEMPLATE_1">Select Template</a>
+        </div>
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="template-item-img mx-auto ms-lg-0 position-relative">
+          <img src="/images/final-1.png" alt="" class="img-fluid">
+          <a class="btn btn-lg btn-primary position-absolute choose-template-btn" id="generateResumeBtn" data-template="TEMPLATE_2">Select Template</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="py-3 text-center">
+    <p class="text-muted mb-0">© 2022 BuildCv. All rights reserved</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script>
+    (async function() {
+        try {
+            // Get the session user data
+            const response = await fetch('http://localhost:3000/api/session', {
+                method: 'POST',
+                credentials: 'include'
+            });
+    
+            const user = await response.json();
+    
+            const resumeId = user._id; // Extract the resume ID
+            const contactfirstname = user.username || 'Unknown'; // Fallback if username is not found
+            let selectedTemplateNumber = null; // Variable to store selected template number
+    
+            // Attach event listener to template buttons
+            document.querySelectorAll('.choose-template-btn').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    selectedTemplateNumber = event.target.getAttribute('data-template');
+                    console.log('Selected Template Number:', selectedTemplateNumber); // Debugging line to see the selected template
+                });
+            });
+    
+            // Handle the "Generate Resume" button click
+            document.querySelectorAll('#generateResumeBtn').forEach(button => { 
+            button.addEventListener('click', async function() {
+                if (!resumeId) {
+                    showAlert('Resume ID not found. Save your data first.', 'error');
+                    return;
+                }
+    
+                if (!selectedTemplateNumber) {
+                    showAlert('Please select a template.', 'error');
+                    return;
+                }
+    
+                try {
+                    // Fetch the generated resume using resumeId and selectedTemplateNumber
+                    const response = await fetch(`http://localhost:3000/api/resumeform/generate/${resumeId}/${selectedTemplateNumber}`, {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+    
+                    if (!response.ok) throw new Error('Failed to generate resume');
+    
+                    // Create a blob for the resume download
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `generated_resume_${contactfirstname}.docx`; // Use contactfirstname to name the file
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+    
+                    // Show success message and redirect
+                    await showAlert('Resume generated and downloaded!', 'success');
+                    window.location.href = '/home';
+                } catch (error) {
+                    console.error('Generate Error:', error.message);
+                    showAlert('Error generating the resume.', 'error');
+                }
+            })});
+        } catch (error) {
+            console.error('Session Error:', error.message);
+            showAlert('Error fetching session data.', 'error');
+        }
+    })();
+    
+
+    //* Show Alert Container
+      function showAlert(message, type) {
+      const container = document.getElementById('alert-container');
+    
+      const alert = document.createElement('div');
+      alert.classList.add('alert', `alert-${type}`);
+      alert.innerText = message;
+    
+      container.appendChild(alert);
+    
+      // Animate in after 100ms
+      setTimeout(() => {
+        alert.classList.add('show');
+      }, 100);
+    
+      // Remove alert and redirect after 3 seconds
+      setTimeout(() => {
+        alert.classList.remove('show');
+    
+        // Wait for animation to finish, then remove and redirect
+        setTimeout(() => {
+          alert.remove();
+          window.location.href = redirectTO || '/template';
+        }, 400); // match your alert hide animation duration
+      }, 3000); // how long the alert stays on screen
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
