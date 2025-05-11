@@ -1,4 +1,4 @@
-{
+{ 
   "name": "resume-gernrator-html-css-and-express",
   "version": "1.0.0",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "body-parser": "^1.20.3",
     "connect-mongo": "^5.1.0",
     "cors": "^2.8.5",
