@@ -94,7 +94,7 @@ MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/resumedb
 ### 5. Start the Server
 
 ```bash
-node server.js
+node index.js
 ```
 
 The application will be available at:
