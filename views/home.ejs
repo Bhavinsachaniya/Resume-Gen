@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeGen</title>
+    <title>ResumeBuilder</title>
     <link rel="stylesheet" href="/css/main.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -77,19 +77,7 @@
             <p class="text-center mb-5">Effortlessly make a job-worthy resume and cover<br>letter that gets you hired faster.</p>
             
             <div class="row g-4">
-                <!-- Step 1 -->
-                <div class="col-md-4">
-                    <div class="card border-0 step-card">
-                        <div class="card-body text-center">
-                            <div class="icon-box mx-auto mb-3">
-                                <i class="fas fa-layer-group"></i>
-                            </div>
-                            <h4 class="fw-bold">Choose your CV template</h4>
-                            <p class="text-muted">Pick a template and color of your choice from a variety of professional templates.</p>
-                        </div>
-                    </div>
-                </div>
-                
+
                 <!-- Step 2 -->
                 <div class="col-md-4">
                     <div class="card border-0 step-card">
@@ -103,6 +91,21 @@
                     </div>
                 </div>
                 
+
+                <!-- Step 1 -->
+                <div class="col-md-4">
+                    <div class="card border-0 step-card">
+                        <div class="card-body text-center">
+                            <div class="icon-box mx-auto mb-3">
+                                <i class="fas fa-layer-group"></i>
+                            </div>
+                            <h4 class="fw-bold">Choose your CV template</h4>
+                            <p class="text-muted">Pick a template and color of your choice from a variety of professional templates.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
                 <!-- Step 3 -->
                 <div class="col-md-4">
                     <div class="card border-0 step-card">
@@ -111,7 +114,7 @@
                                 <i class="fas fa-download"></i>
                             </div>
                             <h4 class="fw-bold">Instantly download your CV</h4>
-                            <p class="text-muted">Easily download your CV as a PDF and share it via a link.</p>
+                            <p class="text-muted">Easily download your CV as a docx and share it via a link.</p>
                         </div>
                     </div>
                 </div>
@@ -120,22 +123,35 @@
     </section>
 
     <!-- Templates Section -->
-    <section class="templates-section">
-        <div class="container text-center">
-            <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
-            <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
-            
-            <div class="d-flex justify-content-center">
-                <div class = "template-item-img mx-auto ms-lg-0 position-relative">
-                    <img src = "/images/final-1.png" alt = "" class = "img-fluid">
-                    <a href = "/Resumeform/TEMPLATE_1" class = "btn btn-lg btn-primary position-absolute choose-template-btn">Select Template</a>
-                </div>
-            </div>
+  <section class="templates-section py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
+    <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
+
+    <div class="row justify-content-center g-4">
+      <!-- Template 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="template-item-img position-relative">
+          <img src="/images/final-1.png" alt="Template 1" class="img-fluid rounded shadow">
+          <a href="/template" class="btn btn-lg btn-primary position-absolute top-50 start-50 translate-middle choose-template-btn"
+             id="generateResumeBtn" data-template="TEMPLATE_1">Select Template</a>
         </div>
-    </section>
+      </div>
+
+      <!-- Template 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="template-item-img position-relative">
+          <img src="/images/Screenshot_12-5-2025_02851_products.aspose.app.jpeg" alt="Template 2" class="img-fluid rounded shadow">
+          <a href="/template" class="btn btn-lg btn-primary position-absolute top-50 start-50 translate-middle choose-template-btn"
+             id="generateResumeBtn" data-template="TEMPLATE_2">Select Template</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
     <!-- Footer -->
     <footer class="py-3 text-center">
-        <p class="text-muted mb-0">© 2022 BuildCv. All rights reserved</p>
+        <p class="text-muted mb-0">© 2025 ResumeBuilder. All rights reserved</p>
     </footer>
 
     <!-- Bootstrap JS -->

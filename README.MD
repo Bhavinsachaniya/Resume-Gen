@@ -94,7 +94,11 @@ MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/resumedb
 ### 5. Start the Server
 
 ```bash
+<<<<<<< HEAD
 node index.js
+=======
+node server.js
+>>>>>>> b15d2e3 (update)
 ```
 
 The application will be available at:
@@ -430,7 +434,11 @@ resume-builder/
 │       └── db.js              # Database connection
 ├── views/                     # EJS templates
 ├── .env                       # Environment variables
+<<<<<<< HEAD
 └── index.js                  # Main application file
+=======
+└── server.js                  # Main application file
+>>>>>>> b15d2e3 (update)
 ```
 
 ---
@@ -445,4 +453,8 @@ Perfect for job seekers, career changers, and anyone who wants to create a profe
 
 ## 🧡 If you find this useful, don't forget to leave a ⭐ on GitHub!
 
+<<<<<<< HEAD
 ---
+=======
+---
+>>>>>>> b15d2e3 (update)

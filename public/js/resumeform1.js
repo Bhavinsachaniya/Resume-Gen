@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="description-container-1-1-1">
         <label>Project Overview</label>
         <textarea name="Project-overview" id="Project-description-${projectCount}" required></textarea>
-        <button class="generate-button" id="Project-genratewithai-${projectCount}"  onclick='AIGenratedData("Project-description-${projectCount}' , 'Project-genratewithai-${projectCount}' , '2')" type="button">Generate with AI</button>
+        <button class="generate-button" id="Project-genratewithai-${projectCount}"  onclick="AIGenratedData('Project-description-${projectCount}' , 'Project-genratewithai-${projectCount}' , '2')" type="button">Generate with AI</button>
 </div>
         `
 
@@ -318,6 +318,8 @@ document.addEventListener('DOMContentLoaded', function () {
     addButtons.forEach(button => button.remove())
   }
 })
+
+
 const steps = document.querySelectorAll('.container-1-1-1')
 let currentStep = 0
 
@@ -344,6 +346,15 @@ function addSkill () {
   div.innerHTML = `<input type="text" name="skills[]" placeholder="Enter a skill">`
   container.appendChild(div)
 }
+
+function achievementTitle () {
+  const container = document.getElementById('AchievementContainer')
+  const div = document.createElement('div')
+  div.classList.add('Achievement-input')
+  div.innerHTML = `<input type="text" name="achievementTitle[]" placeholder="Enter a Achievement Title">`
+  container.appendChild(div)
+}
+
 
 async function AIGenratedData(questionid, id, number) {
   const generatewithai = document.getElementById(id)
@@ -437,9 +448,10 @@ function collectFormData() {
   const projectoverview = Array.from(projectItems).map(item => item.querySelector('textarea[name^="Project-overview"]')?.value || '');
 
   // Achievements (if any added later)
-  const Achievementstitle = Array.from(document.querySelectorAll('.achievement-item')).map(item =>
-    item.querySelector('input[name^="achievementTitle"]')?.value || ''
-  );
+  
+  const Achievementstitle = Array.from(document.querySelectorAll('input[name="achievementTitle[]"]'))
+    .map(input => input.value.trim())
+    .filter(val => val !== '');
 
   // Hobbies (same idea)
   const hobbies = Array.from(document.querySelectorAll('.hobby-item')).map(item =>

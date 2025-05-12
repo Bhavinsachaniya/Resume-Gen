@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ResumeGen</title>
+  <title>ResumeBuilder</title>
   <link rel="stylesheet" href="/css/main.css">
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,28 +18,36 @@
   <%- include('header') %>
 
   <!-- Templates Section -->
-  <section class="templates-section">
-    <div class="container text-center">
-      <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
-      <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
+  <section class="templates-section py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">Here are the Best Templates for you</h2>
+    <p class="mb-5">A great job application leads to a good interview. An<br>amazing resume is what makes it all possible.</p>
 
-      <div class="d-flex justify-content-center">
-        <div class="template-item-img mx-auto ms-lg-0 position-relative">
-          <img src="/images/final-1.png" alt="" class="img-fluid">
-          <a class="btn btn-lg btn-primary position-absolute choose-template-btn" id="generateResumeBtn" data-template="TEMPLATE_1">Select Template</a>
+    <div class="row justify-content-center g-4">
+      <!-- Template 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="template-item-img position-relative">
+          <img src="/images/final-1.png" alt="Template 1" class="img-fluid rounded shadow">
+          <a class="btn btn-lg btn-primary position-absolute top-50 start-50 translate-middle choose-template-btn"
+             id="generateResumeBtn" data-template="TEMPLATE_1">Select Template</a>
         </div>
       </div>
-      <div class="d-flex justify-content-center">
-        <div class="template-item-img mx-auto ms-lg-0 position-relative">
-          <img src="/images/final-1.png" alt="" class="img-fluid">
-          <a class="btn btn-lg btn-primary position-absolute choose-template-btn" id="generateResumeBtn" data-template="TEMPLATE_2">Select Template</a>
+
+      <!-- Template 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="template-item-img position-relative">
+          <img src="/images/Screenshot_12-5-2025_02851_products.aspose.app.jpeg" alt="Template 2" class="img-fluid rounded shadow">
+          <a class="btn btn-lg btn-primary position-absolute top-50 start-50 translate-middle choose-template-btn"
+             id="generateResumeBtn" data-template="TEMPLATE_2">Select Template</a>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
+
   <!-- Footer -->
   <footer class="py-3 text-center">
-    <p class="text-muted mb-0">© 2022 BuildCv. All rights reserved</p>
+    <p class="text-muted mb-0">© 2025 ResumeBuilder. All rights reserved</p>
   </footer>
 
   <!-- Bootstrap JS -->

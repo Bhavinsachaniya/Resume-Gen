@@ -21,30 +21,37 @@ const selectPrompt = async (question, questiontype) => {
     switch (questiontype) {
         
         case "1": //* Expereince prompt
-            prompt = `Create a professional 
-                summary based on the following experience. 
-                The summary should be between 20-30 words, 
-                highlighting key skills and achievements 
-                in a concise, polished manner, suitable for 
-                a job application. Experience:${question}`;
+            prompt = `Create a professional summary based on the following experience:
+                        - Use 20-30 words
+                        - Highlight key responsibilities and skills
+                        - Mention tools or tech if applicable
+                        - Keep it job-application ready
+                        - if they Enter out of experience information so tell them to Enter Experience related information
+                        Experience: ${question}`;
+
             break;
 
 
         case "2": //* about section prompt
-            prompt = `Create a polished, professional,
-                and concise resume summary based on the 
-                following information. The summary should 
-                be 20-30 words, focusing on key skills, achievements,
-                and career goals: ${question}`;
+            prompt = `Based on the data provided, generate a professional and concise project description:
+                    - Keep it 20-30 words
+                    - Mention project's goal and key tech used
+                    - Briefly note challenges and solutions
+                    - Share the final outcome or impact
+                    - if user enter the out of topic information enter so tell them Enter the Project Related Information
+                    Project Info: ${question}`;
+
             break;
 
 
         case "3": //* project section prompt
-            prompt = `${question}Based on the provided 
-                data, generate a polished and concise 'About
-                Text' for the project, highlighting the project's
-                purpose, key technologies, challenges, solutions,
-                and outcomes in a professional manner.`;
+            prompt = `Generate a polished and concise resume summary:
+                    - Limit to 20-30 words
+                    - Emphasize skills and career goals
+                    - Highlight achievements or focus areas
+                    - If they Enter out of the about section or Education out question ask so just tell them Enter resume related or about section related information Enter
+                    Info: ${question}`;
+
             break;
 
 
