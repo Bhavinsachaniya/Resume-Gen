@@ -430,7 +430,7 @@ resume-builder/
 │       └── db.js              # Database connection
 ├── views/                     # EJS templates
 ├── .env                       # Environment variables
-└── server.js                  # Main application file
+└── index.js                  # Main application file
 ```
 
 ---
