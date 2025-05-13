@@ -10,10 +10,6 @@ if (!mongoURI) {
 const connectDB = async () => {
   try {
     await mongoose.connect(mongoURI);
-<<<<<<< HEAD
-=======
-    await mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
->>>>>>> b15d2e3 (update)
     console.log("MongoDB connected");
   } catch (err) {
     console.error("MongoDB connection error: ", err);

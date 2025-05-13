@@ -52,103 +52,104 @@
 
   <!-- Bootstrap JS -->
   <script>
-    (async function() {
-        try {
-            // Get the session user data
-            const response = await fetch('http://localhost:3000/api/session', {
-                method: 'POST',
-                credentials: 'include'
+(async function () {
+    try {
+        // Get the session user data
+        const response = await fetch('http://localhost:3000/api/session', {
+            method: 'POST',
+            credentials: 'include'
+        });
+
+        const user = await response.json();
+        const resumeId = user._id; // Extract the resume ID
+        const contactFirstName = user.username || 'Unknown'; // Fallback if username is not found
+        let selectedTemplateNumber = null; // Store selected template number
+
+        // Attach event listener to template buttons
+        document.querySelectorAll('.choose-template-btn').forEach(button => {
+            button.addEventListener('click', (event) => {
+                selectedTemplateNumber = event.target.getAttribute('data-template');
+                console.log('Selected Template Number:', selectedTemplateNumber);
             });
-    
-            const user = await response.json();
-    
-            const resumeId = user._id; // Extract the resume ID
-            const contactfirstname = user.username || 'Unknown'; // Fallback if username is not found
-            let selectedTemplateNumber = null; // Variable to store selected template number
-    
-            // Attach event listener to template buttons
-            document.querySelectorAll('.choose-template-btn').forEach(button => {
-                button.addEventListener('click', (event) => {
-                    selectedTemplateNumber = event.target.getAttribute('data-template');
-                    console.log('Selected Template Number:', selectedTemplateNumber); // Debugging line to see the selected template
-                });
-            });
-    
-            // Handle the "Generate Resume" button click
-            document.querySelectorAll('#generateResumeBtn').forEach(button => { 
-            button.addEventListener('click', async function() {
+        });
+
+        // Handle the "Generate Resume" button click
+        document.querySelectorAll('#generateResumeBtn').forEach(button => {
+            button.addEventListener('click', async function () {
                 if (!resumeId) {
                     showAlert('Resume ID not found. Save your data first.', 'error');
                     return;
                 }
-    
+
                 if (!selectedTemplateNumber) {
                     showAlert('Please select a template.', 'error');
                     return;
                 }
-    
+
                 try {
-                    // Fetch the generated resume using resumeId and selectedTemplateNumber
                     const response = await fetch(`http://localhost:3000/api/resumeform/generate/${resumeId}/${selectedTemplateNumber}`, {
                         method: 'POST',
                         credentials: 'include'
                     });
-    
+
                     if (!response.ok) throw new Error('Failed to generate resume');
-    
-                    // Create a blob for the resume download
+
+                    // Extract file name from header
+                    const contentDisposition = response.headers.get('Content-Disposition');
+                    const match = contentDisposition && contentDisposition.match(/filename="(.+)"/);
+                    const fileName = match ? match[1] : `resume_${contactFirstName}.docx`;
+
+                    // Create a blob and trigger download
                     const blob = await response.blob();
                     const url = window.URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `generated_resume_${contactfirstname}.docx`; // Use contactfirstname to name the file
+                    a.download = fileName;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     window.URL.revokeObjectURL(url);
-    
-                    // Show success message and redirect
-                    await showAlert('Resume generated and downloaded!', 'success');
-                    window.location.href = '/home';
+
+                    showAlert('Resume generated and downloaded!', 'success', '/home');
+
                 } catch (error) {
                     console.error('Generate Error:', error.message);
                     showAlert('Error generating the resume.', 'error');
                 }
-            })});
-        } catch (error) {
-            console.error('Session Error:', error.message);
-            showAlert('Error fetching session data.', 'error');
-        }
-    })();
-    
+            });
+        });
 
-    //* Show Alert Container
-      function showAlert(message, type) {
-      const container = document.getElementById('alert-container');
-    
-      const alert = document.createElement('div');
-      alert.classList.add('alert', `alert-${type}`);
-      alert.innerText = message;
-    
-      container.appendChild(alert);
-    
-      // Animate in after 100ms
-      setTimeout(() => {
-        alert.classList.add('show');
-      }, 100);
-    
-      // Remove alert and redirect after 3 seconds
-      setTimeout(() => {
-        alert.classList.remove('show');
-    
-        // Wait for animation to finish, then remove and redirect
-        setTimeout(() => {
-          alert.remove();
-          window.location.href = redirectTO || '/template';
-        }, 400); // match your alert hide animation duration
-      }, 3000); // how long the alert stays on screen
+        // ALERT function with optional redirect
+        function showAlert(message, type, redirectTo = null) {
+            const container = document.getElementById('alert-container');
+
+            const alert = document.createElement('div');
+            alert.classList.add('alert', `alert-${type}`);
+            alert.innerText = message;
+            container.appendChild(alert);
+
+            // Animate alert
+            setTimeout(() => {
+                alert.classList.add('show');
+            }, 100);
+
+            // Remove and maybe redirect
+            setTimeout(() => {
+                alert.classList.remove('show');
+                setTimeout(() => {
+                    alert.remove();
+                    if (redirectTo) window.location.href = redirectTo;
+                }, 400);
+            }, 3000);
+        }
+
+    } catch (error) {
+        console.error('Session Error:', error.message);
+        showAlert('Error fetching session data.', 'error');
     }
-  </script>
+})();
+</script>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
