@@ -6,7 +6,7 @@ const ResumeSchema = new mongoose.Schema({
         ref: 'User',
         required: true,
         unique: true
-    }, // Reference to User
+    },
 
     firstname: {
         type: String,
@@ -36,108 +36,108 @@ const ResumeSchema = new mongoose.Schema({
     experience: [{
         jobTitle: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         companyName: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         expCity: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         country: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         startDate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         endDate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         description: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     education: [{
         school: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         degree: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         city: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         country: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         startDate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         endDate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         edugpa: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     Achievement: [{
         atitle: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     Project: [{
         ptitle: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         pstartDate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         penddate: {
             type: String,
-            required: false // Now optional
+            required: false  
         },
         poverview: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     skills: [{
         skill: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     hobbies: [{
         hobbies: {
             type: String,
-            required: false // Now optional
+            required: false  
         }
     }],
 
     about: {
         type: String,
-        required: false // Now optional
+        required: false  
     }
 });
 
